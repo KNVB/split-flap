@@ -1,23 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
-
+import SplitFlap from './components/splitFlap/SplitFlap';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ "margin": "10px" }}>
+      <SplitFlap 
+        bgColor="orange" 
+        borderRadius="20px" 
+        color="green" 
+        fontFamily="標楷體" 
+        fontSize="5.5em" 
+        height="150px" 
+        width="100px" />
     </div>
   );
 }

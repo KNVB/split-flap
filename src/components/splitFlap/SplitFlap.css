@@ -1,0 +1,106 @@
+.fullCard,
+.fullCard-after,
+.halfCard {
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.fullCard-after::after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 2px;
+    background-color: black;
+    width: 100%;
+    top: calc(50% - 1px);
+}
+
+.halfCard {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
+}
+
+.rotate0to90 {
+    animation-name: r0to90;
+}
+
+.rotate90to0 {
+    animation-name: r90to0;
+}
+
+.rotate0to_90 {
+    animation-name: r0to_90;
+}
+
+.rotate_90to0 {
+    animation-name: r_90to0;
+}
+
+.rotate0to90,
+.rotate90to0,
+.rotate0to_90,
+.rotate_90to0 {
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes r0to90 {
+    from {
+        transform: rotateX(0deg);
+    }
+
+    to {
+        transform: rotateX(90deg);
+    }
+}
+
+@keyframes r90to0 {
+    from {
+        transform: rotateX(90deg);
+    }
+
+    to {
+        transform: rotateX(0deg);
+    }
+}
+
+@keyframes r0to_90 {
+    from {
+        transform: rotateX(0deg);
+    }
+
+    to {
+        transform: rotateX(-90deg);
+    }
+}
+
+@keyframes r_90to0 {
+    from {
+        transform: rotateX(-90deg);
+    }
+
+    to {
+        transform: rotateX(0deg);
+    }
+}
+
+.transform0to_90 {
+    transform: rotateX(-90deg);
+}
+
+.transform0to90 {
+    transform: rotateX(90deg);
+}
+
+.zIndex2 {
+    z-index: 2;
+}
+
+.zIndex4 {
+    z-index: 4;
+}
+
+.zIndex10 {
+    z-index: 10;
+}
