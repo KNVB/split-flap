@@ -81,7 +81,9 @@ export default function Slot({action,className,hinge,newValue,oldValue}){
         updateObjList({ type: 'forward2' });
     }
     return (
-        <div className={className}>
+        <div className={className} style={{"position": "relative",
+                                            "boxSizing": "border-box",
+                                            "transformStyle":"preserve-3d"}}>
             <div
                 className={objList.firstDivClass}
                 onAnimationEndCapture={firstDivHandle}>

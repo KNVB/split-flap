@@ -2,7 +2,7 @@ import './App.css';
 import "./SplitFlap.css";
 import SplitFlap from './components/splitFlap/SplitFlap';
 function App() {
-  let wordList = ['大雨殺到', '粵澳停課香港如常', '梁榮武'];
+  let wordList = ['Good Game.', 'Oh Shit', 'Oh No','Oh Yes'];
   
   return (
     <div style={{ "margin": "10px" }}>
