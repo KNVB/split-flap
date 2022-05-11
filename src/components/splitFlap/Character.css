@@ -11,10 +11,10 @@
     content: "";
     display: block;
     position: absolute;
-    height: 2px;
-    background-color: black;
+    height: 4px;
+    background-color:  inherit;
     width: 100%;
-    top: calc(50% - 1px);
+    top: calc(50% - 2px);
 }
 
 .halfCard {
@@ -104,3 +104,16 @@
 .zIndex10 {
     z-index: 10;
 }
+
+.blue{
+    background-color: blue
+ }
+ .green{
+    background-color: green
+ }
+ .red{
+    background-color: red
+ }
+ .orange{
+   background-color: orange
+ }

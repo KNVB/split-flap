@@ -1,53 +1,71 @@
-import './SplitFlap.css';
-export default function SplitFlap({ action, bgColor, borderRadius, color, fontFamily, fontSize, height, hinge, newValue, oldValue, width }) {
+import { useEffect,useReducer } from 'react';
+import Character from './Character';
+let reducer = (state, action) => {
+    let result = { ...state };
+    result.oldIndex = result.newIndex;
+    result.newIndex = action.value;
+    result.action = action.type;
+    console.log(result);
+    return result;
+};
+export default function SplitFlap({bgColor, borderRadius, className, color, fontFamily, fontSize,fontWeight, height, hinge, timing, width,wordList}){
+    const [objList, updateObjList] = useReducer(reducer, {
+        oldIndex: 0,
+        newIndex: 0,
+        action: 'init',
+    });
+    let maxWordLength=0;
     let style = {
-        "background-color": bgColor || 'black',
-        "box-sizing": "border-box",
-        "border-radius": borderRadius || "10px",
-        "color": color || "white",
-        "font-family": fontFamily || 'arial',
-        "font-size": fontSize || "5.5em",
+        action: objList.action,
+        "bgColor": bgColor || 'black',
+        "borderRadius": borderRadius || "10px",
+        "color": color || "white",        
+        "fontFamily": fontFamily || 'arial',
+        "fontSize": fontSize || "5.5em",
+        "fontWeight":fontWeight||"normal",
         "height": height || "150px",
-        "line-height": height || "150px",
-        "position": "relative",
-        "text-align": "center",
-        "transform-style": "preserve-3d",
+        "lineHeight": height || "150px",       
         "width": width || "100px"
+    };   
+    wordList.forEach(word=>{
+        if (word.length>maxWordLength){
+            maxWordLength=word.length;
+        }
+    });
+    let characterList=[];
+    let splitStyle={
+        "display":"flex",
+        "flexDirection":"row",
     };
-    let firstDivHandle = () => { }
-    let secondDivHandle = () => { }
-    let thirdDivHandle = () => { }
-    let fourDivHandle = () => { }
+    for (let i=0;i<maxWordLength;i++){
+        characterList.push(
+            <div key={"c_"+i} style={{"marginRight":"3px"}}>
+                <Character {...style} 
+                    action={objList.action}
+                    oldValue={wordList[objList.oldIndex][i]} 
+                    newValue={wordList[objList.newIndex][i]}/>                
+            </div>
+        )
+    }
+    const forward = () => {
+        let temp = objList.newIndex + 1;
+        if (temp === wordList.length){
+            temp=0;
+        }
+        updateObjList({
+            type: "forward",
+            value: temp,
+        });
+    };
+    useEffect(()=>{
+        const intervalId = setInterval(() => {
+            forward();
+        },timing);
+        return () => clearInterval(intervalId);
+    })
     return (
-        <div style={style}>
-            <div 
-                className="fullCard-after zIndex2" 
-                id="first"
-                onAnimationEndCapture={firstDivHandle}
-                style={{ "background-color": style['background-color'] }} >
-                因
-            </div>
-            <div 
-                className="fullCard-after zIndex2"
-                id="second"
-                onAnimationEndCapture={secondDivHandle}
-                style={{ "background-color": style['background-color'] }} >
-                果
-            </div>
-            <div 
-                className="halfCard zIndex2" 
-                id="third"
-                onAnimationEndCapture={thirdDivHandle}
-                style={{ "background-color": style['background-color'] }}>
-                因
-            </div>
-            <div  
-                className="halfCard zIndex4" 
-                id="fourth"
-                onAnimationEndCapture={fourDivHandle}
-                style={{ "background-color": style['background-color'] }}>
-                果
-            </div>
+        <div style={splitStyle} className={className}>
+            {characterList}
         </div>
     )
 }

@@ -1,0 +1,4 @@
+.wordList{
+    display:flex;
+    flex-direction: row;
+}
