@@ -1,24 +1,35 @@
 .fullCard,
+.lowerHalfCard,
+.upperHalfCard,
 .fullCard-after,
-.halfCard {
-    background-color:inherit;
+.lowerHalfCard-after,
+.upperHalfCard-after {
+    background-color: inherit;
     border-radius: 10px;
     height: 100%;
     width: 100%;
     position: absolute;
 }
 
-.fullCard-after::after {
+.fullCard-after::after,
+.lowerHalfCard-after::after,
+.upperHalfCard-after::after {
     content: "";
     display: block;
     position: absolute;
     height: 4px;
-    background-color:  inherit;
+    background-color: inherit;
     width: 100%;
     top: calc(50% - 2px);
 }
 
-.halfCard {
+.lowerHalfCard,
+.lowerHalfCard-after {
+    clip-path: polygon(0% 50%, 100% 50%, 100% 100%, 0% 100%);
+}
+
+.upperHalfCard,
+.upperHalfCard-after {
     clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
 }
 
@@ -94,6 +105,10 @@
     transform: rotateX(90deg);
 }
 
+.hide {
+    display: none
+}
+
 .zIndex2 {
     z-index: 2;
 }
@@ -106,15 +121,18 @@
     z-index: 10;
 }
 
-.blue{
+.blue {
     background-color: blue
- }
- .green{
+}
+
+.green {
     background-color: green
- }
- .red{
+}
+
+.red {
     background-color: red
- }
- .orange{
-   background-color: orange
- }
+}
+
+.orange {
+    background-color: orange
+}
