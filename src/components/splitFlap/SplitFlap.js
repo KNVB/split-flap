@@ -15,10 +15,16 @@ export default function SplitFlap({ hinge, splitFlapClassName, slotClassName, ti
         action: 'init',
     });
     wordList.forEach(word => {
-        if (word.length > maxWordLength) {
-            maxWordLength = word.length;
+        if (word.length){
+            if (word.length > maxWordLength) {
+                maxWordLength = word.length;
+            }
+        } else {
+            maxWordLength=1;
+            return
         }
     });
+    
     let characterList = [];
     for (let i = 0; i < maxWordLength; i++) {
         characterList.push(
@@ -27,8 +33,8 @@ export default function SplitFlap({ hinge, splitFlapClassName, slotClassName, ti
                     action={objList.action}
                     className={slotClassName}
                     hinge={hinge}
-                    oldValue={wordList[objList.oldIndex][i]}
-                    newValue={wordList[objList.newIndex][i]} />
+                    oldValue={(wordList[objList.oldIndex].length)?wordList[objList.oldIndex][i]:wordList[objList.oldIndex]}
+                    newValue={(wordList[objList.newIndex].length)?wordList[objList.newIndex][i]:wordList[objList.newIndex]} />
             </div>
         )
     }
