@@ -5,15 +5,28 @@
 .lowerHalfCard-after,
 .upperHalfCard-after {
     background-color: inherit;
-    border-radius: 10px;
+    border-radius: inherit;
     height: 100%;
     width: 100%;
     position: absolute;
+
+    align-items: inherit;
+    display: inherit;
+    justify-content: inherit;
 }
 
 .fullCard-after::after,
-.lowerHalfCard-after::after,
 .upperHalfCard-after::after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 4px;
+    background-color: inherit;
+    width: 100%;
+    top: calc(50% - 2px);
+}
+
+.lowerHalfCard-after::after {
     content: "";
     display: block;
     position: absolute;
@@ -32,7 +45,6 @@
 .upperHalfCard-after {
     clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
 }
-
 .rotate0to90 {
     animation-name: r0to90;
 }

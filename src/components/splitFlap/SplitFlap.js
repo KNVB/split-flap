@@ -22,7 +22,7 @@ export default function SplitFlap({ hinge, splitFlapClassName, slotClassName, ti
     let characterList = [];
     for (let i = 0; i < maxWordLength; i++) {
         characterList.push(
-            <div key={"c_" + i} style={{ "marginRight": "3px" }}>
+            <div key={"c_" + i} style={{ "marginRight": "3px"}}>
                 <Slot
                     action={objList.action}
                     className={slotClassName}
@@ -32,19 +32,43 @@ export default function SplitFlap({ hinge, splitFlapClassName, slotClassName, ti
             </div>
         )
     }
+    let backward=()=>{
+        let temp;
+        if (objList.newIndex===0){
+            temp=wordList.length-1
+        }else {
+            temp=objList.newIndex-1;
+        }
+        updateObjList({type:"backward",value:temp})
+    }
+    let forward=()=>{
+        let temp=objList.newIndex+1;
+        if (temp === wordList.length){
+            temp=0;
+        }
+        updateObjList({type:"forward",value:temp})
+    }
+    
     useEffect(() => {
-        const id = setInterval(() => {
-            let temp=objList.newIndex+1;
-            if (temp === wordList.length){
-                temp=0;
-            }
-            updateObjList({type:"forward",value:temp})
-        }, timing);
+        const id = setInterval(() => {forward()}, timing);
         return () => { clearInterval(id) }
     })
+
     return (
-        <div className={splitFlapClassName}>
-            {characterList}
-        </div>
+        <>
+            <div className={splitFlapClassName}>
+                {characterList}
+            </div>
+            {/*
+            <p>
+                <button onClick={forward}>
+                +
+                </button>
+                <button onClick={backward}>
+                -
+                </button>
+            </p>
+            */}
+        </>
     )
 }
