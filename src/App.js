@@ -10,7 +10,7 @@ function App() {
         hinge={true}
         splitFlapClassName="splitFlap"
         slotClassName="slot"
-        timing={3000}
+        timing={1000}
         wordList={wordList}/>
     </div>
   );
