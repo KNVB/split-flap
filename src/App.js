@@ -10,7 +10,7 @@ export default function App() {
         hinge={true}
         splitFlapClassName="splitFlap"
         slotClassName="slot"
-        timing={1000}
+        timing={3000}
         wordList={wordList}/>
     </div>
   );
