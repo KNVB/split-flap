@@ -31,11 +31,19 @@ let reducer = (state, action) => {
             result.oldValue = result.newValue;
             result.middleDivClass = "hide";
             result.upperDivClass = result.upperHalfCard + " zIndex4";
-            result.lowerDivClass = result.lowerHalfCard + " zIndex2";
+            result.lowerDivClass = result.lowerHalfCard + " zIndex2";         
             break;
         default:
             break;
     }
+    /*
+    console.log("=============================================");
+    console.log("action.type="+action.type);
+    console.log("result.upperDivClass="+result.upperDivClass);
+    console.log("result.middleDivClass="+result.middleDivClass);
+    console.log("result.lowerDivClass="+result.lowerDivClass);
+    console.log("=============================================");
+    */
     return result;
 };
 export default function Slot({ action, className, hinge, newValue, oldValue }) {
@@ -68,6 +76,7 @@ export default function Slot({ action, className, hinge, newValue, oldValue }) {
         updateObjList({ type: "forward2" });
     }
     let middleHandler = () => {
+        //console.log("resume event is triggered.");
         updateObjList({ type: "resume" });
     }
     let lowerHandler = () => {
@@ -87,19 +96,19 @@ export default function Slot({ action, className, hinge, newValue, oldValue }) {
             <div
                 className={objList.upperDivClass}
                 id="upper"
-                onAnimationEndCapture={upperHandler}>
+                onAnimationEnd={upperHandler}>
                 {objList.oldValue}
             </div>
             <div
                 id="middle"
                 className={objList.middleDivClass}
-                onAnimationEndCapture={middleHandler}>
+                onAnimationEnd={middleHandler}>
                 {objList.newValue}
             </div>
             <div
                 className={objList.lowerDivClass}
                 id="lower"
-                onAnimationEndCapture={lowerHandler}>
+                onAnimationEnd={lowerHandler}>
                 {objList.oldValue}
             </div>
         </div>
