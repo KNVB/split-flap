@@ -52,13 +52,14 @@ export default function SplitFlap({ hinge, splitFlapClassName, slotClassName, ti
         if (temp === wordList.length){
             temp=0;
         }
+        console.log("Kicked By interval");
         updateObjList({type:"forward",value:temp})
     }
     
     useEffect(() => {
         const id = setInterval(() => {forward()}, timing);
         return () => { clearInterval(id) }
-    })
+    },[])
 
     return (
         <>

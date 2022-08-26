@@ -19,7 +19,11 @@ let reducer = (state, action) => {
         case "forward":
             result.oldValue = action.oldValue;
             result.newValue = action.newValue;
-            temp = result.upperDivClass + " rotate0to_90";
+            if (result.upperDivClass.indexOf("rotate0to_90") > -1) {
+                console.log("Something wrong");
+            } else {
+                temp = result.upperDivClass + " rotate0to_90";
+            }
             result.upperDivClass = temp;
             result.middleDivClass = result.lowerHalfCard + " transform0to90 zIndex4";
             break;
@@ -31,24 +35,25 @@ let reducer = (state, action) => {
             result.oldValue = result.newValue;
             result.middleDivClass = "hide";
             result.upperDivClass = result.upperHalfCard + " zIndex4";
-            result.lowerDivClass = result.lowerHalfCard + " zIndex2";         
+            result.lowerDivClass = result.lowerHalfCard + " zIndex2";
             break;
         default:
             break;
     }
-    /*
+    
     console.log("=============================================");
     console.log("action.type="+action.type);
+    /*
     console.log("result.upperDivClass="+result.upperDivClass);
     console.log("result.middleDivClass="+result.middleDivClass);
-    console.log("result.lowerDivClass="+result.lowerDivClass);
+    console.log("result.lowerDivClass="+result.lowerDivClass);*/
     console.log("=============================================");
-    */
+    
     return result;
 };
 export default function Slot({ action, className, hinge, newValue, oldValue }) {
     let fullCard = "", lowerHalfCard = "", upperHalfCard = "";
-    if ((hinge === undefined)|| (hinge === true)) {
+    if ((hinge === undefined) || (hinge === true)) {
         fullCard = "fullCard-after";
         lowerHalfCard = "lowerHalfCard-after";
         upperHalfCard = "upperHalfCard-after";
@@ -90,7 +95,7 @@ export default function Slot({ action, className, hinge, newValue, oldValue }) {
         }}>
             <div
                 id="base"
-                className={objList.fullCard+" zIndex2"}>
+                className={objList.fullCard + " zIndex2"}>
                 {objList.newValue}
             </div>
             <div
