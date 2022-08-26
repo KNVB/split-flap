@@ -15,8 +15,8 @@ let reducer = (state, action) => {
         <img alt="" src="img/6.png" />, <img alt="" src="img/7.png" />,
         <img alt="" src="img/8.png" />, <img alt="" src="img/9.png" />
     ];
-    let digitAction;
-    for (let i = 0; i < 3; i++) {
+    let digitAction,i=2;
+    //for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 2; j++) {
             console.log(newTimeArray[i][j], oldTimeArray[i][j]);
             if (document.hasFocus()) {
@@ -33,7 +33,7 @@ let reducer = (state, action) => {
                     oldValue={oldTimeArray[i][j]} />
             );
         }
-    }
+    //}
     result.digitList = temp;
 
     //console.log(oldTimeArray);
