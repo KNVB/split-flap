@@ -16,53 +16,25 @@ let reducer = (state, action) => {
         <img alt="" src="img/8.png" />, <img alt="" src="img/9.png" />
     ];
     let digitAction;
-    let i = 2, j = 1;
-    console.log(newTimeArray[i][j], oldTimeArray[i][j]);
-    
-    digitAction = "init";
-    
-    temp.push(
-        <Slot
-            action={digitAction}
-            className="splitFlap"
-            key={i + "_" + j}
-            newValue={newTimeArray[i][j]}
-            oldValue={oldTimeArray[i][j]} />
-    );
-    result.digitList = temp;
-    /*
-    if (result.oldTime !== '') {
-        for (let i = 0; i < 3; i++) {
-            //console.log(newTimeArray[i], oldTimeArray[i]);
-            for (let j = 0; j < 2; j++) {
-                //console.log(newTimeArray[i][j], oldTimeArray[i][j]);
-                let digitAction;
-                if ((newTimeArray[i][j] === oldTimeArray[i][j])) {
-                    digitAction = "init";
-                } else {
-                    if (document.hasFocus()) {
-                        digitAction = "forward";
-                    } else {
-                        digitAction = "init";
-                    }
-
-                }
-                temp.push(
-                    <Slot
-                        action={digitAction}
-                        className="splitFlap"
-                        key={i + "_" + j}
-                        newValue={wordList[newTimeArray[i][j]]}
-                        oldValue={wordList[oldTimeArray[i][j]]} />
-                );
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 2; j++) {
+            console.log(newTimeArray[i][j], oldTimeArray[i][j]);
+            if (document.hasFocus()) {
+                digitAction = "forward";
+            } else {
+                digitAction = "init";
             }
-            if (i < 2) {
-                temp.push(<span key={"cell_" + i} style={{ "fontSize": "128px" }}>:</span>);
-            }
-            //console.log("================================================");
+            temp.push(
+                <Slot
+                    action={digitAction}
+                    className="splitFlap"
+                    key={i + "_" + j}
+                    newValue={newTimeArray[i][j]}
+                    oldValue={oldTimeArray[i][j]} />
+            );
         }
-        result.digitList = temp;
-    }*/
+    }
+    result.digitList = temp;
 
     //console.log(oldTimeArray);
     return result;
