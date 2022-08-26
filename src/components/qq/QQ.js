@@ -7,7 +7,7 @@ export default function QQ({hinge, timing, wordList }) {
     const [itemList, updateItemList] = useReducer(reducer,{action:"backward", newIndex: 1, oldIndex: 0 });
     let trigger = () => {
         //console.log('======================================================');
-        console.log('Kicked by interval,Has focus:' + document.hasFocus());
+        //console.log('Kicked by interval,Has focus:' + document.hasFocus());
 
         let temp = {};
         temp.oldIndex = itemList.newIndex;
