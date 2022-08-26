@@ -53,13 +53,12 @@
   font-size: 5.5em;
   
   width: 100px;
-  height: 150px;
-  position: relative;
+  height: 150px; 
           
   align-items: center;
   display:flex;
   justify-content: center;			  
-  transform-style: preserve-3d;			  
+  
 }
 
 .rotate0to90 {
