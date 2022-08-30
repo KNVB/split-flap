@@ -15,24 +15,34 @@ let reducer = (state, action) => {
         <img alt="" src="img/6.png" />, <img alt="" src="img/7.png" />,
         <img alt="" src="img/8.png" />, <img alt="" src="img/9.png" />
     ];
-    let digitAction,i=2;
+    let digitAction, i = 2,j=1;
     //for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 2; j++) {
-            console.log(newTimeArray[i][j], oldTimeArray[i][j]);
+
+    //for (let j = 0; j < 2; j++) {
+        console.log(newTimeArray[i], oldTimeArray[i]);
+        
+        if (newTimeArray[i][j] === oldTimeArray[i][j]) {
+            digitAction = "init";
+        } else {
             if (document.hasFocus()) {
                 digitAction = "forward";
             } else {
                 digitAction = "init";
             }
-            temp.push(
-                <Slot
-                    action={digitAction}
-                    className="splitFlap"
-                    key={i + "_" + j}
-                    newValue={newTimeArray[i][j]}
-                    oldValue={oldTimeArray[i][j]} />
-            );
         }
+        console.log(newTimeArray[i][j], oldTimeArray[i][j], (newTimeArray[i][j] === oldTimeArray[i][j]),"hasFocus="+document.hasFocus()+",digitAction="+digitAction);
+        temp.push(
+            <Slot
+                action={digitAction}
+                className="splitFlap"
+                key={i + "_" + j}
+                newIndex={newTimeArray[i][j]}
+                oldIndex={oldTimeArray[i][j]}
+                wordList={wordList}
+               />
+        );
+    //}
+    console.log("=======================================================================");
     //}
     result.digitList = temp;
 
