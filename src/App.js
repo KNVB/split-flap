@@ -1,6 +1,7 @@
 import './App.css';
 import "./SplitFlap.css";
 import Clock from "./components/clock/Clock";
+import GG from "./components/gg/GG";
 import QQ from "./components/qq/QQ";
 import SplitFlap from './components/splitFlap/SplitFlap';
 export default function App() {
@@ -25,8 +26,11 @@ export default function App() {
           hinge={false}
           timing={1000}
           wordList={wordList}/>
+
+        <Clock/>  
       */}
-      <Clock/>
+      <GG 
+        wordList={wordList}/>            
     </div>
   );
 }
