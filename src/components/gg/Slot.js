@@ -1,8 +1,8 @@
 import "./Slot.css";
 import { useEffect, useReducer, useRef } from 'react';
-export default function Slot({ action,className,hinge, newIndex, oldIndex, wordList }) {
+export default function Slot({ action, className, hinge, newIndex, oldIndex, wordList }) {
     //const[itemList,updateItemList]=useReducer(reducer,{newIndex:newIndex,oldIndex:oldIndex})
-
+    console.log("newIndex=" + newIndex + ", oldIndex=" + oldIndex);
     let baseDiv = useRef(), lowerDiv = useRef(), middleDiv = useRef(), upperDiv = useRef();
     let baseDivClass, lowerDivClass, middleDivClass, upperDivClass;
     let fullCard = "", lowerHalfCard = "", upperHalfCard = "";
@@ -37,11 +37,11 @@ export default function Slot({ action,className,hinge, newIndex, oldIndex, wordL
                 break;
         }
     }
-    useEffect(()=>{
-        console.log("action="+action);
+    useEffect(() => {
+        console.log("action=" + action);
         switch (action) {
             case "backward":
-                lowerDiv.current.classList.add("rotate0to90");
+                lowerDiv.current.className += " rotate0to90";
                 middleDiv.current.className = upperHalfCard + " transform0to_90 zIndex4";
                 break;
             case "forward":
@@ -51,7 +51,7 @@ export default function Slot({ action,className,hinge, newIndex, oldIndex, wordL
             default:
                 break;
         }
-    });
+    },[action,newIndex,oldIndex]);
     return (
         <div className={className}
             style={{

@@ -1,0 +1,101 @@
+import {useEffect, useReducer } from "react";
+import Slot from "./Slot";
+let reducer = (state, action) => {
+    let result = { ...state };
+    let temp;
+    switch (action.type) {
+        case "forward":
+            temp={}
+            temp.newIndex = result.newIndex + 1;
+            if (temp.newIndex === action.length) {
+                temp.newIndex = 0;
+            }
+            //result.newIndex = temp;
+            temp.oldIndex = result.oldIndex + 1;
+            if (temp.oldIndex === action.length) {
+                temp.oldIndex = 0;
+            }
+            //result.oldIndex = temp;
+            console.log("document.hasFocus()=" + document.hasFocus())
+            if (document.hasFocus()) {
+                temp.action = action.type;
+            } else {
+                temp.action = "init";
+            }
+            result={...temp};
+            break;
+        case "start":
+            if (result.intervalId){
+                clearInterval(result.intervalId);    
+            }
+            let intervalId = setInterval(action.trigger, 1000);
+            result.intervalId = intervalId;
+            break
+        case "stop":
+            clearInterval(result.intervalId);
+            result.intervalId = null;
+            break
+        default:
+            break;
+    }
+    return result;
+}
+export default function GG() {
+    const [itemList, updateItemList] = useReducer(reducer, { action: "init", intervalId: null, newIndex: 1, oldIndex: 0 });
+    let wordList = [
+        <img alt="" src="img/0.png" />, <img alt="" src="img/1.png" />,
+        <img alt="" src="img/2.png" />, <img alt="" src="img/3.png" />,
+        <img alt="" src="img/4.png" />, <img alt="" src="img/5.png" />,
+        <img alt="" src="img/6.png" />, <img alt="" src="img/7.png" />,
+        <img alt="" src="img/8.png" />, <img alt="" src="img/9.png" />
+    ];
+    let backward = () => {
+        updateItemList({ type: "backward", length: wordList.length });
+    }
+    let forward = () => {
+        //setTimeout(() => {
+
+        updateItemList({ type: "forward", length: wordList.length });
+
+        //}, 5000)
+    }
+    let start = () => {
+        
+        updateItemList({ type: "start", trigger:forward});
+    }
+    let stop = () => {
+        updateItemList({ type: "stop" });
+    }
+    useEffect(()=>{
+        let intervalId = setInterval(forward, 1000);
+        return () => {
+            clearInterval(intervalId);
+        };
+    })
+    return (
+        <div>
+           {/* 
+            <Slot
+                action={itemList.action}
+                className="splitFlap"
+                newIndex={itemList.newIndex}
+                oldIndex={itemList.oldIndex}
+                wordList={wordList} />
+            */}    
+            <p>
+                <button onClick={forward}>
+                    +
+                </button>
+                <button onClick={backward}>
+                    -
+                </button>
+                <button onClick={start}>
+                    Start
+                </button>
+                <button onClick={stop}>
+                    Stop
+                </button>
+            </p>
+        </div>
+    )
+}
