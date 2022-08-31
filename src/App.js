@@ -1,9 +1,9 @@
 import './App.css';
 import "./SplitFlap.css";
-import Clock from "./components/clock/Clock";
+//import Clock from "./components/clock/Clock";
 import GG from "./components/gg/GG";
-import QQ from "./components/qq/QQ";
-import SplitFlap from './components/splitFlap/SplitFlap';
+//import QQ from "./components/qq/QQ";
+//import SplitFlap from './components/splitFlap/SplitFlap';
 export default function App() {
   let wordList = [
     <img alt="" src="img/0_100.png" />, <img alt="" src="img/1_100.png" />,
