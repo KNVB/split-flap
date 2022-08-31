@@ -1,57 +1,46 @@
 import { useEffect, useRef, useState } from "react";
 import "./Slot.css";
 export default function Slot({ action, className, hinge, newIndex, oldIndex, wordList }) {
-    let baseDiv = useRef(), lowerDiv = useRef(), middleDiv = useRef(), upperDiv = useRef();
-    let fullCard,lowerHalfCard,upperHalfCard;
-    if ((hinge === undefined) || (hinge === true)) {
-        fullCard = "fullCard-after";
-        lowerHalfCard = "lowerHalfCard-after";
-        upperHalfCard = "upperHalfCard-after";
-    } else {
-        fullCard = "fullCard";
-        lowerHalfCard = "lowerHalfCard";
-        upperHalfCard = "upperHalfCard";
-    }
-    let baseDivClass=fullCard+" zIndex2";
-    let lowerDivClass=lowerHalfCard+" zIndex2";
-    let middleDivClass="hide";
-    let upperDivClass=upperHalfCard+" zIndex4";
-    let handler=id=>{
-        console.log("id="+id);
-    }  
+    const [itemList, updateItemList] = useState({
+        action: "init",
+        baseDivClass:'',
+        fullCard: '',
+        lowerDivClass:'',
+        lowerHalfCard: "",
+        middleDivClass:'', 
+        newIndex: 1,
+        oldIndex: 0,
+        upperDivClass:'',
+        upperHalfCard: ""
+    });
+    useEffect(()=>{
+        let temp = { ...itemList };
+        if ((hinge === undefined) || (hinge === true)) {
+            temp.fullCard = "fullCard-after";
+            temp.lowerHalfCard = "lowerHalfCard-after";
+            temp.upperHalfCard = "upperHalfCard-after";
+        } else {
+            temp.fullCard = "fullCard";
+            temp.lowerHalfCard = "lowerHalfCard";
+            temp.upperHalfCard = "upperHalfCard";
+        }
+        temp.baseDivClass=temp.fullCard+" zIndex2";
+        temp.lowerDivClass=temp.lowerHalfCard+" zIndex2";
+        temp.middleDivClass="hide";
+        temp.upperDivClass=temp.upperHalfCard+" zIndex4";        
+        console.log("Triggered by useEffect")
+        updateItemList(temp); 
+    },[])
+    useEffect(()=>{
+        console.log("hi from slot");
+    },[action,newIndex,oldIndex])
     return (
         <div className={className}
-            style={{
-                "position": "relative",
-                "boxSizing": "border-box",
-                "transformStyle": "preserve-3d"
-            }}>
-            <div
-                className={baseDivClass}
-                id="base"
-                ref={baseDiv}>
-                {wordList[newIndex]}
-            </div>
-            <div
-                className={upperDivClass}
-                id="upper"
-                onAnimationEnd={(e) => handler(e.target.id)}
-                ref={upperDiv}>
-                {wordList[oldIndex]}
-            </div>
-            <div
-                className={middleDivClass}
-                id="middle"
-                onAnimationEnd={(e) => handler(e.target.id)}
-                ref={middleDiv}>
-            </div>
-            <div
-                className={lowerDivClass}
-                id="lower"
-                onAnimationEnd={(e) => handler(e.target.id)}
-                ref={lowerDiv}>
-                {wordList[oldIndex]}
-            </div>
-        </div>
-    )
+           style={{
+               "position": "relative",
+               "boxSizing": "border-box",
+               "transformStyle": "preserve-3d"
+           }}>            
+       </div>
+   );
 }
