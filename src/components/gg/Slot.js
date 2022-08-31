@@ -1,11 +1,8 @@
+import { useEffect, useRef, useState } from "react";
 import "./Slot.css";
-import { useEffect, useReducer, useRef } from 'react';
 export default function Slot({ action, className, hinge, newIndex, oldIndex, wordList }) {
-    //const[itemList,updateItemList]=useReducer(reducer,{newIndex:newIndex,oldIndex:oldIndex})
-    console.log("newIndex=" + newIndex + ", oldIndex=" + oldIndex);
     let baseDiv = useRef(), lowerDiv = useRef(), middleDiv = useRef(), upperDiv = useRef();
-    let baseDivClass, lowerDivClass, middleDivClass, upperDivClass;
-    let fullCard = "", lowerHalfCard = "", upperHalfCard = "";
+    let fullCard,lowerHalfCard,upperHalfCard;
     if ((hinge === undefined) || (hinge === true)) {
         fullCard = "fullCard-after";
         lowerHalfCard = "lowerHalfCard-after";
@@ -15,43 +12,13 @@ export default function Slot({ action, className, hinge, newIndex, oldIndex, wor
         lowerHalfCard = "lowerHalfCard";
         upperHalfCard = "upperHalfCard";
     }
-    baseDivClass = fullCard + " zIndex2";
-    lowerDivClass = lowerHalfCard + " zIndex2";
-    middleDivClass = "hide";
-    upperDivClass = upperHalfCard + " zIndex4";
-    let handler = (id) => {
-        console.log("id=" + id);
-        switch (id) {
-            case "middle":
-                upperDiv.current.innerHTML = baseDiv.current.innerHTML;
-                lowerDiv.current.innerHTML = baseDiv.current.innerHTML;
-                middleDiv.current.className = "hide";
-                upperDiv.current.className = upperHalfCard + " zIndex4";
-                lowerDiv.current.className = lowerHalfCard + " zIndex2";
-                break;
-            case "upper":
-                middleDiv.current.classList.add("rotate90to0");
-                upperDiv.current.classList.replace("zIndex4", "zIndex2");
-                break;
-            default:
-                break;
-        }
-    }
-    useEffect(() => {
-        console.log("action=" + action);
-        switch (action) {
-            case "backward":
-                lowerDiv.current.className += " rotate0to90";
-                middleDiv.current.className = upperHalfCard + " transform0to_90 zIndex4";
-                break;
-            case "forward":
-                upperDiv.current.className += " rotate0to_90";
-                middleDiv.current.className = lowerHalfCard + " transform0to90 zIndex4";
-                break;
-            default:
-                break;
-        }
-    },[action,newIndex,oldIndex]);
+    let baseDivClass=fullCard+" zIndex2";
+    let lowerDivClass=lowerHalfCard+" zIndex2";
+    let middleDivClass="hide";
+    let upperDivClass=upperHalfCard+" zIndex4";
+    let handler=id=>{
+        console.log("id="+id);
+    }  
     return (
         <div className={className}
             style={{
@@ -77,7 +44,6 @@ export default function Slot({ action, className, hinge, newIndex, oldIndex, wor
                 id="middle"
                 onAnimationEnd={(e) => handler(e.target.id)}
                 ref={middleDiv}>
-                {wordList[newIndex]}
             </div>
             <div
                 className={lowerDivClass}
