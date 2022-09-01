@@ -16,7 +16,7 @@ export default function Clock() {
         console.log('Kicked by interval,Has focus:' + document.hasFocus());
         let now = new Date();
         let options = {
-            hourCycle: 'h24',
+            hourCycle: 'h23',
             hour: "2-digit",
             minute: "numeric",
             second: "numeric",

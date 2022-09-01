@@ -10,7 +10,7 @@ export default function Slot({ action, className, hinge, newIndex, oldIndex, wor
         lowerHalfCard: "",
         middleDivClass: '',
         newValue: '',
-        oldValue: '',      
+        oldValue: '',
         upperDivClass: '',
         upperHalfCard: ""
     });
@@ -39,9 +39,9 @@ export default function Slot({ action, className, hinge, newIndex, oldIndex, wor
         }
         updateItemList(temp);
     }
-
+    
     useEffect(() => {
-        let temp = { ...itemList };
+        let temp = {};
         if ((hinge === undefined) || (hinge === true)) {
             temp.fullCard = "fullCard-after";
             temp.lowerHalfCard = "lowerHalfCard-after";
@@ -55,14 +55,13 @@ export default function Slot({ action, className, hinge, newIndex, oldIndex, wor
         temp.lowerDivClass = temp.lowerHalfCard + " zIndex2";
         temp.middleDivClass = "hide";
         temp.upperDivClass = temp.upperHalfCard + " zIndex4";
-        if (wordList) {
+        if (wordList){
             temp.oldValue = wordList[oldIndex];
             temp.newValue = wordList[newIndex];
-        } else {
+        }else {
             temp.oldValue = oldIndex;
             temp.newValue = newIndex;
         }
-
         switch (action) {
             case "backward":
                 temp.lowerDivClass += " rotate0to90";
@@ -75,6 +74,7 @@ export default function Slot({ action, className, hinge, newIndex, oldIndex, wor
             default:
                 break;
         }
+        /*
         console.log("=========================");
         console.log("Triggered by useEffect:");
         console.log(" action=" + action);
@@ -82,9 +82,9 @@ export default function Slot({ action, className, hinge, newIndex, oldIndex, wor
         console.log(" oldIndex=" + oldIndex);
         console.log(" newIndex=" + newIndex);
         console.log("=========================");
-
+        */
         updateItemList(temp);
-    }, [action, oldIndex, newIndex]);
+    }, [action, hinge, oldIndex, newIndex]);
 
     return (
         <div className={className}
