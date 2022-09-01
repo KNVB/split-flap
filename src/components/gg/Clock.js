@@ -1,9 +1,9 @@
 import Slot from "./Slot";
-import { useEffect,useState } from "react";
+import { useState } from "react";
 import { useInterval } from "./useInterval";
 export default function Clock() {
     const [itemList, updateItemList] = useState({ 
-        action:'forward',
+        action:'init',
         newIndex: 1,
         oldIndex: 0,});
     let wordList = [
@@ -23,12 +23,17 @@ export default function Clock() {
         if (temp.oldIndex === wordList.length) {
             temp.oldIndex = 0;
         }
+        if (document.hasFocus()){ 
+            temp.action="forward";
+        } else {
+            temp.action="init";
+        }
         console.log("Triggered by interval. hasFocus()="+document.hasFocus());
         updateItemList(temp);        
     },1000);
     return(
         <Slot 
-            action="forward"
+            action={itemList.action}
             className="splitFlap"            
             newIndex={itemList.newIndex}
             oldIndex={itemList.oldIndex}
