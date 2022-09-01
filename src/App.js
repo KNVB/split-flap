@@ -1,7 +1,6 @@
 import './App.css';
 import "./SplitFlap.css";
-//import Clock from "./components/clock/Clock";
-import Clock from "./components/gg/Clock";
+import Clock from "./components/clock/Clock";
 //import QQ from "./components/qq/QQ";
 //import SplitFlap from './components/splitFlap/SplitFlap';
 export default function App() {

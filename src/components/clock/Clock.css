@@ -4,3 +4,11 @@
     flex-direction: row;
     gap: 10px;
 }
+.seperator{   
+    font-weight: bold;
+    font-family: arial;
+    font-size: 5.5em;     
+    align-items: center;
+    display:flex;
+    justify-content: center;	
+}

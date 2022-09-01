@@ -1,63 +1,91 @@
+import { useEffect, useRef, useState } from "react";
 import "./Slot.css";
-import { useEffect, useRef } from 'react';
 export default function Slot({ action, className, hinge, newIndex, oldIndex, wordList }) {
     let baseDiv = useRef(), lowerDiv = useRef(), middleDiv = useRef(), upperDiv = useRef();
-    let baseDivClass, lowerDivClass, middleDivClass, upperDivClass;
-    let fullCard = "", lowerHalfCard = "", upperHalfCard = "";
-    if ((hinge === undefined) || (hinge === true)) {
-        fullCard = "fullCard-after";
-        lowerHalfCard = "lowerHalfCard-after";
-        upperHalfCard = "upperHalfCard-after";
-    } else {
-        fullCard = "fullCard";
-        lowerHalfCard = "lowerHalfCard";
-        upperHalfCard = "upperHalfCard";
-    }
-    baseDivClass = fullCard + " zIndex2";
-    lowerDivClass = lowerHalfCard + " zIndex2";
-    middleDivClass = "hide";
-    upperDivClass = upperHalfCard + " zIndex4";
-    let handler = (id) => {
+    const [itemList, updateItemList] = useState({
+        action: "init",
+        baseDivClass: '',
+        fullCard: '',
+        lowerDivClass: '',
+        lowerHalfCard: "",
+        middleDivClass: '',
+        newValue: '',
+        oldValue: '',      
+        upperDivClass: '',
+        upperHalfCard: ""
+    });
+    let handler = id => {
         console.log("id=" + id);
+        let temp = { ...itemList };
+
         switch (id) {
             case "lower":
-                lowerDiv.current.classList.replace("zIndex4", "zIndex2");
-                middleDiv.current.classList.add("rotate_90to0");
+                temp.lowerDivClass = itemList.lowerDivClass.replace("zIndex4", "zIndex2");
+                temp.middleDivClass += " rotate_90to0";
                 break;
             case "middle":
                 upperDiv.current.innerHTML = baseDiv.current.innerHTML;
                 lowerDiv.current.innerHTML = baseDiv.current.innerHTML;
-                middleDiv.current.className = "hide";
-                upperDiv.current.className = upperHalfCard + " zIndex4";
-                lowerDiv.current.className = lowerHalfCard + " zIndex2";
+                temp.middleDivClass = "hide";
+                temp.upperDivClass = itemList.upperHalfCard + " zIndex4";
+                temp.lowerDivClass = itemList.lowerHalfCard + " zIndex2";
                 break;
             case "upper":
-                middleDiv.current.classList.add("rotate90to0");
-                upperDiv.current.classList.replace("zIndex4", "zIndex2");
+                temp.middleDivClass += " rotate90to0";
+                temp.upperDivClass = itemList.upperDivClass.replace("zIndex4", "zIndex2");
                 break;
             default:
                 break;
         }
+        updateItemList(temp);
     }
-    useEffect(()=>{
+
+    useEffect(() => {
+        let temp = { ...itemList };
+        if ((hinge === undefined) || (hinge === true)) {
+            temp.fullCard = "fullCard-after";
+            temp.lowerHalfCard = "lowerHalfCard-after";
+            temp.upperHalfCard = "upperHalfCard-after";
+        } else {
+            temp.fullCard = "fullCard";
+            temp.lowerHalfCard = "lowerHalfCard";
+            temp.upperHalfCard = "upperHalfCard";
+        }
+        temp.baseDivClass = temp.fullCard + " zIndex2";
+        temp.lowerDivClass = temp.lowerHalfCard + " zIndex2";
+        temp.middleDivClass = "hide";
+        temp.upperDivClass = temp.upperHalfCard + " zIndex4";
+        if (wordList) {
+            temp.oldValue = wordList[oldIndex];
+            temp.newValue = wordList[newIndex];
+        } else {
+            temp.oldValue = oldIndex;
+            temp.newValue = newIndex;
+        }
+
         switch (action) {
             case "backward":
-                lowerDiv.current.classList.add("rotate0to90");
-                middleDiv.current.className = upperHalfCard + " transform0to_90 zIndex4";
+                temp.lowerDivClass += " rotate0to90";
+                temp.middleDivClass = temp.upperHalfCard + " transform0to_90 zIndex4";
                 break;
             case "forward":
-                upperDivClass += " rotate0to_90";
-                middleDivClass = lowerHalfCard + " transform0to90 zIndex4";
+                temp.upperDivClass += " rotate0to_90";
+                temp.middleDivClass = temp.lowerHalfCard + " transform0to90 zIndex4";
                 break;
             default:
                 break;
         }
-    },[action,newIndex,oldIndex])
+        console.log("=========================");
+        console.log("Triggered by useEffect:");
+        console.log(" action=" + action);
+        console.log(" hasfocus=" + document.hasFocus());
+        console.log(" oldIndex=" + oldIndex);
+        console.log(" newIndex=" + newIndex);
+        console.log("=========================");
 
-    
-    //upperDivClass += " rotate0to_90";
-    //middleDivClass = lowerHalfCard + " transform0to90 zIndex4";
-    console.log(action,upperDivClass+"|"+middleDivClass+"|"+className+"|"+newIndex+"|"+oldIndex);
+        updateItemList(temp);
+    }, [action, oldIndex, newIndex]);
+
     return (
         <div className={className}
             style={{
@@ -66,31 +94,31 @@ export default function Slot({ action, className, hinge, newIndex, oldIndex, wor
                 "transformStyle": "preserve-3d"
             }}>
             <div
-                className={baseDivClass}
+                className={itemList.baseDivClass}
                 id="base"
                 ref={baseDiv}>
-                {wordList[newIndex]}
+                {itemList.newValue}
             </div>
             <div
-                className={upperDivClass}
+                className={itemList.upperDivClass}
                 id="upper"
                 onAnimationEnd={(e) => handler(e.target.id)}
                 ref={upperDiv}>
-                {wordList[oldIndex]}
+                {itemList.oldValue}
             </div>
             <div
-                className={middleDivClass}
+                className={itemList.middleDivClass}
                 id="middle"
                 onAnimationEnd={(e) => handler(e.target.id)}
                 ref={middleDiv}>
-                {wordList[newIndex]}
+                {itemList.newValue}
             </div>
             <div
-                className={lowerDivClass}
+                className={itemList.lowerDivClass}
                 id="lower"
                 onAnimationEnd={(e) => handler(e.target.id)}
                 ref={lowerDiv}>
-                {wordList[oldIndex]}
+                {itemList.oldValue}
             </div>
         </div>
     );

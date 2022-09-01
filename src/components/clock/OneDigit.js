@@ -1,10 +1,10 @@
 import Slot from "./Slot";
 import { useState } from "react";
 import { useInterval } from "./useInterval";
-export default function Clock() {
+export default function OneDigit() {
     const [itemList, updateItemList] = useState({ 
         action:'init',
-        newIndex: 1,
+        newIndex: 0,
         oldIndex: 0,});
     let wordList = [
         <img alt="" src="img/0.png" />, <img alt="" src="img/1.png" />,
@@ -15,6 +15,7 @@ export default function Clock() {
     ];
     useInterval(()=>{
         let temp = { ...itemList };
+        /*
         temp.newIndex++;
         if (temp.newIndex === wordList.length) {
             temp.newIndex = 0;
@@ -23,6 +24,7 @@ export default function Clock() {
         if (temp.oldIndex === wordList.length) {
             temp.oldIndex = 0;
         }
+        */
         if (document.hasFocus()){ 
             temp.action="forward";
         } else {
