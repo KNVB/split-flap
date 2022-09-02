@@ -1,8 +1,6 @@
 import './App.css';
-import "./SplitFlap.css";
-import Clock from "./components/clock/Clock";
-//import QQ from "./components/qq/QQ";
-//import SplitFlap from './components/splitFlap/SplitFlap';
+import Clock from "./examples/clock/Clock";
+import CountDown from './examples/countDown/CountDown';
 export default function App() {
   let wordList = [
     <img alt="" src="img/0_100.png" />, <img alt="" src="img/1_100.png" />,
@@ -14,22 +12,10 @@ export default function App() {
   //let wordList = ["Good Game","Oh Yes","No"];
   return (
     <div style={{ "margin": "10px" }}>
-      {/*
-        <SplitFlap
-        hinge={true}
-        splitFlapClassName="splitFlap"
-        slotClassName="slot"
-        timing={3000}
-        wordList={wordList}/>
-        <QQ
-          hinge={false}
-          timing={1000}
-          wordList={wordList}/>
-          
-        <GG 
-          wordList={wordList}/>
-      */}
-        <Clock/>          
+      <Clock/>
+      <br/>
+      Count Down to the next year
+      <CountDown/>
     </div>
   );
 }

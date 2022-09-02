@@ -1,0 +1,30 @@
+.clock{
+    align-items:center;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.seperator{   
+    font-weight: bold;
+    font-family: arial;
+    font-size: 5.5em;     
+    align-items: center;
+    display:flex;
+    justify-content: center;	
+}
+.splitFlap {
+    background-color:black;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-family: arial;
+    font-size: 5.5em;
+    
+    width: 100px;
+    height: 150px; 
+            
+    align-items: center;
+    display:flex;
+    justify-content: center;
+  }

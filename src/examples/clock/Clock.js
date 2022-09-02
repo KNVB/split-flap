@@ -1,7 +1,7 @@
-import Slot from "./Slot";
+import SplitFlap from "../../splitFlap/SplitFlap";
 import "./Clock.css";
 import { useState } from "react";
-import { useInterval } from "./useInterval";
+import { useInterval } from "../../useInterval";
 export default function Clock() {
     const [itemList, updateItemList] = useState({ digitList: [], oldTime: '00:00:00' });
     let wordList = [
@@ -33,16 +33,20 @@ export default function Clock() {
                 let oldValue = oldTimeArray[i].charAt(j);
                 let newValue = newTimeArray[i].charAt(j);
                 
-                if (document.hasFocus()) {
+                /***************************************************************************/
+                /*When the browser is not in focus, the animation may not working properly,*/
+                /*so just replace the digit only.                                          */
+                /***************************************************************************/
+                if (document.hasFocus()) { 
                     action = "forward";
                 } else {
-                    action = "init";
-                }                
+                    action = "init"; 
+                }    
                 digitList.push(
-                    <Slot
+                    <SplitFlap
                         action={action}
                         className="splitFlap"
-                        key={"slot_" + i + "_" + j}
+                        key={"SplitFlap_" + i + "_" + j}
                         newIndex={newValue}
                         oldIndex={oldValue}
                         wordList={wordList} />
@@ -60,12 +64,10 @@ export default function Clock() {
         updateItemList(temp);
 
     }, 1000)
+    console.log(itemList.oldTime);
     return (
-        <div>
-            <div className="clock">
-                {itemList.digitList}
-            </div>
-            {itemList.oldTime}
+        <div className="clock">
+            {itemList.digitList}
         </div>
     )
 }
