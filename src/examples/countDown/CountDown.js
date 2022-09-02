@@ -69,8 +69,8 @@ export default function CountDown() {
         let oldTimeArray = itemList.oldTime.split(":");
         for (let i = 0; i < newTimeArray.length; i++) {
             digitList.push(makeDigitList("time_" + i, oldTimeArray[i], newTimeArray[i]));
-            if ((newTimeArray.length - i)>1){
-                digitList.push(<div className="seperator" key={"seperator"+(i+2)}></div>)
+            if ((newTimeArray.length - i) > 1) {
+                digitList.push(<div className="seperator" key={"seperator" + (i + 2)}></div>)
             }
         }
         let temp = {};
