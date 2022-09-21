@@ -12,7 +12,7 @@ export default function App() {
   //let wordList = ["Good Game","Oh Yes","No"];
   return (
     <div style={{ "margin": "10px" }}>
-      <Clock/>
+      {/*<Clock/>*/}
       <br/>
       Count Down to the next year
       <CountDown/>

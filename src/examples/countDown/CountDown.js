@@ -38,11 +38,41 @@ export default function CountDown() {
         }
         return digitList;
     }
+    let now = new Date(Date.now());
+    let target = new Date((1 + now.getFullYear()) + "-1-1");
+
+    let options = {
+        day: "2-digit",
+        hourCycle: 'h23',
+        hour: "2-digit",
+        minute: "numeric",
+        month: "2-digit",
+        second: "numeric",
+        year: 'numeric'
+    }
+
+    let monthString = '', dateString = '';
+/*
+    let diff = target - now;
+    console.log("diff="+diff);
+    let diffMonth = Math.trunc(diff / (86400000 * 31));
+    diff = diff - (diffMonth * 86400000 * 30);
+    let diffInDay = Math.trunc(diff / 86400000);
+    diff = diff - (diffInDay * 86400000);
+    let diffINHr = Math.trunc(diff / (1000 * 3600));
+    diff = diff - (diffINHr * (1000 * 3600));
+    let diffMin = Math.trunc(diff / (1000 * 60));
+    diff = diff - (diffMin * 60 * 1000);
+    let diffSec = Math.trunc(diff / 1000);
+    console.log(diffMonth + " Month " + diffInDay + " Day " + diffINHr + " Hour(s) " + diffMin + " Minute(s) " + diffSec + " seconds");
+*/
+    /*
     useInterval(() => {
         let digitList = [];
         let now = new Date(Date.now());
-        let nextYear = new Date((1 + now.getFullYear()) + "-1-1");
-        let diff = new Date(nextYear - now);
+        let nextYear = new Date((0 + now.getFullYear()) + "-9-22");
+        let diff = new Date();
+        
         let options = {
             hourCycle: 'h23',
             hour: "2-digit",
@@ -50,6 +80,7 @@ export default function CountDown() {
             second: "numeric",
         }
         let monthString = '', dateString = '';
+        diff.setTime(nextYear - now);
         if ((diff.getMonth() + 1) < 10) {
             monthString = "0";
         }
@@ -60,7 +91,7 @@ export default function CountDown() {
         dateString += diff.getDate();
         console.log(monthString, dateString);
         let diffString = diff.toLocaleTimeString([], options);
-        //console.log(diffString);
+        console.log(diffString);
         digitList.push(makeDigitList("month", monthString, itemList.oldMonthString));
         digitList.push(<div className="seperator" key="seperator0"></div>)
         digitList.push(makeDigitList("date", dateString, itemList.oldDateString));
@@ -80,6 +111,7 @@ export default function CountDown() {
         temp.oldTime = diffString;
         updateItemList(temp);
     }, 1000)
+    */
     return (
         <div className="countDown">
             {itemList.digitList}
