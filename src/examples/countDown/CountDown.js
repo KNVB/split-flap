@@ -3,7 +3,12 @@ import { useInterval } from "../../useInterval";
 import "./CountDown.css";
 import SplitFlap from "../../splitFlap/SplitFlap";
 export default function CountDown() {
-    const [itemList, updateItemList] = useState({ digitList: [], oldMonthString: "00", oldDateString: "00", oldTime: '00:00:00' });
+    const [itemList, updateItemList] = useState(
+        {
+            digitList: [],
+            year: "00", month: "00", day: "00",
+            hour: "00", minute: "00", second: "00"
+        });
     let wordList = [
         <img alt="" src="img/0_100.png" />, <img alt="" src="img/1_100.png" />,
         <img alt="" src="img/2_100.png" />, <img alt="" src="img/3_100.png" />,
@@ -22,7 +27,7 @@ export default function CountDown() {
             /*so just replace the digit only.                                          */
             /***************************************************************************/
             if (document.hasFocus()) {
-                action = "forward";
+                action = "backward";
             } else {
                 action = "init";
             }
@@ -38,80 +43,44 @@ export default function CountDown() {
         }
         return digitList;
     }
-    let now = new Date(Date.now());
-    let target = new Date((1 + now.getFullYear()) + "-1-1");
-
-    let options = {
-        day: "2-digit",
-        hourCycle: 'h23',
-        hour: "2-digit",
-        minute: "numeric",
-        month: "2-digit",
-        second: "numeric",
-        year: 'numeric'
+    let getDiff = (startDate, endDate) => {
+        let result = new Date(endDate - startDate);
+        let twoDigitOption = {
+            minimumIntegerDigits: 2,
+            useGrouping: false
+        };
+        return {
+            year: (result.getUTCFullYear() - 1970).toLocaleString('en-US', twoDigitOption),
+            month: (result.getUTCMonth() - 1).toLocaleString('en-US', twoDigitOption),
+            day: (result.getUTCDate() - 1).toLocaleString('en-US', twoDigitOption),
+            hour: result.getUTCHours().toLocaleString('en-US', twoDigitOption),
+            minute: result.getUTCMinutes().toLocaleString('en-US', twoDigitOption),
+            second: result.getUTCSeconds().toLocaleString('en-US', twoDigitOption),
+        }
     }
 
-    let monthString = '', dateString = '';
-/*
-    let diff = target - now;
-    console.log("diff="+diff);
-    let diffMonth = Math.trunc(diff / (86400000 * 31));
-    diff = diff - (diffMonth * 86400000 * 30);
-    let diffInDay = Math.trunc(diff / 86400000);
-    diff = diff - (diffInDay * 86400000);
-    let diffINHr = Math.trunc(diff / (1000 * 3600));
-    diff = diff - (diffINHr * (1000 * 3600));
-    let diffMin = Math.trunc(diff / (1000 * 60));
-    diff = diff - (diffMin * 60 * 1000);
-    let diffSec = Math.trunc(diff / 1000);
-    console.log(diffMonth + " Month " + diffInDay + " Day " + diffINHr + " Hour(s) " + diffMin + " Minute(s) " + diffSec + " seconds");
-*/
-    /*
+    let target = new Date(2023, 0, 1); //Must be a future date
+
     useInterval(() => {
         let digitList = [];
-        let now = new Date(Date.now());
-        let nextYear = new Date((0 + now.getFullYear()) + "-9-22");
-        let diff = new Date();
-        
-        let options = {
-            hourCycle: 'h23',
-            hour: "2-digit",
-            minute: "numeric",
-            second: "numeric",
-        }
-        let monthString = '', dateString = '';
-        diff.setTime(nextYear - now);
-        if ((diff.getMonth() + 1) < 10) {
-            monthString = "0";
-        }
-        monthString += (diff.getMonth() + 1);
-        if (diff.getDate() < 10) {
-            dateString = "0";
-        }
-        dateString += diff.getDate();
-        console.log(monthString, dateString);
-        let diffString = diff.toLocaleTimeString([], options);
-        console.log(diffString);
-        digitList.push(makeDigitList("month", monthString, itemList.oldMonthString));
-        digitList.push(<div className="seperator" key="seperator0"></div>)
-        digitList.push(makeDigitList("date", dateString, itemList.oldDateString));
-        digitList.push(<div className="seperator" key="seperator1"></div>)
-        let newTimeArray = diffString.split(":");
-        let oldTimeArray = itemList.oldTime.split(":");
-        for (let i = 0; i < newTimeArray.length; i++) {
-            digitList.push(makeDigitList("time_" + i, oldTimeArray[i], newTimeArray[i]));
-            if ((newTimeArray.length - i) > 1) {
-                digitList.push(<div className="seperator" key={"seperator" + (i + 2)}></div>)
-            }
-        }
-        let temp = {};
+        let now = new Date();
+        let result = getDiff(now, target);
+        digitList.push(makeDigitList("year", result.year, itemList.year));
+        digitList.push(<div className="seperator" key="seperator0"></div>);
+        digitList.push(makeDigitList("month", result.month, itemList.month));
+        digitList.push(<div className="seperator" key="seperator1"></div>);
+        digitList.push(makeDigitList("day", result.day, itemList.day));
+        digitList.push(<div className="seperator" key="seperator2"></div>);
+        digitList.push(makeDigitList("hour", result.hour, itemList.hour));
+        digitList.push(<div className="seperator" key="seperator3">:</div>);
+        digitList.push(makeDigitList("minute", result.minute, itemList.minute));
+        digitList.push(<div className="seperator" key="seperator4">:</div>);
+        digitList.push(makeDigitList("second", result.second, itemList.second));        
+        let temp = { ...result };
         temp.digitList = digitList;
-        temp.oldDateString = dateString;
-        temp.oldMonthString = monthString;
-        temp.oldTime = diffString;
         updateItemList(temp);
-    }, 1000)
-    */
+    }, 1000);
+    
     return (
         <div className="countDown">
             {itemList.digitList}
